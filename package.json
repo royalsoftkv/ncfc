@@ -1,0 +1,20 @@
+{
+  "name": "ncfc",
+  "version": "1.0.0",
+  "description": "Ncloud P2P file copy",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "nexe index.js -r '.env'"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "md5-file": "^5.0.0",
+    "minimist": "^1.2.5",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.0",
+    "socket.io-stream": "^0.9.1"
+  }
+}
