@@ -1,11 +1,11 @@
 {
   "name": "ncfc",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Ncloud P2P file copy",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "nexe index.js -r '.env'"
+    "build": "nexe index.js"
   },
   "author": "",
   "license": "ISC",

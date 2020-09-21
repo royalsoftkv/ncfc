@@ -5,6 +5,7 @@ const md5File = require('md5-file')
 const minimist = require('minimist')
 const path = require('path')
 const commonUtil = require('./common')
+const config = require('./config')
 
 let argv = minimist(process.argv.slice(2));
 if(argv._.length < 2) {
@@ -13,17 +14,25 @@ if(argv._.length < 2) {
     process.exit()
 }
 
+// console.log(argv, process.cwd())
+// console.log(argv, config)
+
 let file = argv._[1]
-let server = argv._[2] || `http://${process.env.host}:${process.env.port}`
+let server = argv._[2] || config.server
 
 let stream
 let fileSize
 let transferedSize = 0
 let startTime = 0
 
+file = path.resolve(file)
+// console.log(file)
+
+console.log("Connecting to server...")
+
 let socket = sio(server)
 socket.on('connect', ()=>{
-    console.log(`Connected to server`)
+    console.log(`Connected to server ${server}`)
     stream = ss.createStream();
     let stats = fs.statSync(file)
     const hash = md5File.sync(file)
@@ -35,8 +44,8 @@ socket.on('connect', ()=>{
         name: path.basename(file)
     }
     ss(socket).emit('streamFile', stream, fileInfo, (ack)=>{
-        console.log(`File accepted: ${ack.fileId}`)
-        console.log(`Receive it with command: \nncfc receive ${ack.fileId} ${server} ${fileInfo.name}`)
+        console.log(`File accepted: ${file}, size=${fileInfo.size}`)
+        console.log(`Receive it with command: \nncfc receive ${ack.fileId} ${fileInfo.name}`)
     });
     // stream.on('data',(data)=>{
     //     console.log('stream:data', data.length);

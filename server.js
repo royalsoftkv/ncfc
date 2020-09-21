@@ -2,9 +2,10 @@ const sio = require('socket.io')
 const http = require('http')
 const ss = require('socket.io-stream')
 const fs = require('fs')
+const config = require('./config')
 
-const DEFAULT_PORT = process.env.port || 5000
-const DEF_HOST = process.env.host || '0.0.0.0'
+const DEFAULT_PORT = config.port || 5000
+const DEF_HOST = config.host || '0.0.0.0'
 
 let streamFiles = {}
 

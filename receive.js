@@ -6,17 +6,20 @@ var readline = require('readline');
 const minimist = require('minimist')
 const path = require('path')
 const commonUtil = require('./common')
+const config = require('./config')
 
 let argv = minimist(process.argv.slice(2));
 if(argv._.length < 2) {
-    console.info('Usage: ncfc receive fileId [server] [file] [options]')
+    console.info('Usage: ncfc receive fileId [file] [server] [options]')
     console.info('Example: ncfc receive <fileId> http://127.0.0.1:5000 /path/to/file [options]')
     process.exit()
 }
 
 let fileId = argv._[1]
-let server = argv._[2] || `http://${process.env.host}:${process.env.port}`
-let file = argv._[3]
+let file = argv._[2]
+let server = argv._[3] || config.server
+
+file = path.resolve(file)
 
 let socket = sio(server)
 socket.on('connect', ()=>{
