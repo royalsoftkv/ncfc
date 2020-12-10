@@ -17,7 +17,7 @@ if(argv._.length < 2) {
 
 let fileId = argv._[1]
 let file = argv._[2]
-let server = argv._[3] || config.server
+let server = argv._[3] || config.server()
 
 file = path.resolve(file)
 
@@ -28,6 +28,10 @@ socket.on('connect', ()=>{
     let md5
     let size
     ss(socket).emit('readFile', stream, {fileId: fileId}, (fileInfo)=>{
+        if(fileInfo === false) {
+            console.error(`Requested file id does not available`)
+            process.exit()
+        }
         md5 = fileInfo.md5
         size = fileInfo.size
         if(!file) {
@@ -58,31 +62,11 @@ socket.on('connect', ()=>{
         // console.log(`File hash ${md5}, transfered ${hash}`)
         if(size === streamLength && md5 === hash) {
             console.log(`File ${file} received OK`)
+            socket.emit('endFile',fileId, res => {
+                if(res === fileId) {
+                    process.exit()
+                }
+            })
         }
-        process.exit()
     });
-    // stream.on('error',(err)=>{
-    //     console.log('stream:error', err);
-    // });
-    // stream.on('close',()=>{
-    //     console.log('stream:close');
-    // });
-    // stream.on('readable',()=>{
-    //     console.log('stream:readable');
-    // });
-    // stream.on('drain',()=>{
-    //     console.log('stream:drain');
-    // });
-    // stream.on('finish',()=>{
-    //     console.log('stream:finish');
-    // });
-    // stream.on('close',()=>{
-    //     console.log('stream:close');
-    // });
-    // stream.on('pipe',()=>{
-    //     console.log('stream:pipe');
-    // });
-    // stream.on('unpipe',()=>{
-    //     console.log('stream:unpipe');
-    // });
 })

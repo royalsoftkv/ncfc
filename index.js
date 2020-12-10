@@ -1,9 +1,8 @@
 const minimist = require('minimist')
-require('dotenv').config()
 
 let argv = minimist(process.argv.slice(2));
 if(argv._.length === 0) {
-    console.info('Usage: ncfc (server|send|receive) [options]')
+    console.info('Usage: ncfc (server|send|receive|version) [options]')
     process.exit()
 }
 
@@ -15,6 +14,10 @@ if(action === 'server') {
     require('./send')
 } else if (action === 'receive') {
     require('./receive')
+} else if (action === 'version') {
+    let pjson = require('./package.json')
+    console.info(pjson.version)
+    process.exit()
 } else {
     console.error(`Invalid action ${action}`)
     console.info('Usage: ncfc (server|send|receive) [options]')
