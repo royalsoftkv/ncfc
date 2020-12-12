@@ -5,16 +5,13 @@ const fs = require('fs')
 const config = require('./config')
 const env = process.env.NODE_ENV || 'development';
 
-const DEFAULT_PORT = config.port() || 5000
-const DEF_HOST = config.host() || '0.0.0.0'
-
 let streamFiles = {}
 
 let transmitterSocket
 let receiverSocket
 
-let host = DEF_HOST
-let port = DEFAULT_PORT
+let host = process.env.HOST || config.host || '0.0.0.0'
+let port = process.env.PORT || config.port || 5000
 
 const requestListener = function (req, res) {
     if(req.url === '/ncfc') {

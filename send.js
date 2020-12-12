@@ -18,7 +18,7 @@ if(argv._.length < 2) {
 // console.log(argv, config)
 
 let file = argv._[1]
-let server = argv._[2] || config.server()
+let server = argv._[2] || process.env.SERVER || config.server
 
 let stream
 let fileSize
