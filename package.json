@@ -1,13 +1,14 @@
 {
   "name": "ncfc",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Ncloud P2P file copy",
   "main": "index.js",
   "scripts": {
     "build": "nexe index.js",
     "server": "node index.js server",
     "sender": "node index.js send ./example.txt",
-    "receiver": "node index.js receive dev_file_id ./example_receive.txt"
+    "receiver": "node index.js receive dev_file_id ./example_receive.txt",
+    "install": "node index.js install"
   },
   "author": "",
   "license": "ISC",
