@@ -1,6 +1,6 @@
 {
   "name": "ncfc",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Ncloud P2P file copy",
   "main": "index.js",
   "scripts": {
